@@ -132,7 +132,7 @@ db.salles.find({
 ### Affichez la ville des salles dont le code postal commence par 84 et qui ont une capacité strictement inférieure à 500 places (pensez à utiliser une expression régulière).
 ```js
 db.salles.find({
-  $and: [ {"adresse.codePostal":{ $regex: "84*"}}, {capacite: {$lte:250}}]
+  $and: [ {"adresse.codePostal":{ $regex: "84*"}}, {capacite: {$lt:500}}]
 },{
   "_id":0,
   "adresse.ville":1
@@ -195,20 +195,27 @@ db.salles.find({
 ## Exercice 13
 ### Affichez les différents codes postaux présents dans les documents de la collection salles.
 ```js
-
-
+db.salles.find({},{
+  "_id":0,
+  "adresse.codePostal":1
+})
 ```
 ## Exercice 14
 ### Mettez à jour tous les documents de la collection salles en rajoutant 100 personnes à leur capacité actuelle.
 ```js
-
-
+db.salles.updateMany({},{
+  $inc: { "capacite": 100}
+})
 ```
 ## Exercice 15
 ### Ajoutez le style « jazz » à toutes les salles qui n’en programment pas.
 ```js
-
-
+db.salles.updateMany({
+  styles: { $nin: ["jazz"] }
+},
+{
+  $push: { "styles": "jazz"}
+})
 ```
 ## Exercice 16
 ### Retirez le style «funk» à toutes les salles dont l’identifiant n’est égal ni à 2, ni à 3.
