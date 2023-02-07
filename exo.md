@@ -240,8 +240,13 @@ db.salles.updateMany({
 ## Exercice 18
 ### Pour les salles dont le nom commence par la lettre P (majuscule ou minuscule), augmentez la capacité de 150 places et rajoutez un champ de type tableau nommé contact dans lequel se trouvera un document comportant un champ nommé telephone dont la valeur sera « 04 11 94 00 10 ».
 ```js
-
-
+db.salles.updateMany({
+  "nom":{ $regex: "^P"}
+},
+{
+  $inc: { "capacite": 150},
+  $set: { "contact": [{"telephone":"04 11 94 00 10"}] }
+})
 ```
 ## Exercice 19
 ### Pour les salles dont le nom commence par une voyelle (peu importe la casse, là aussi), rajoutez dans le tableau avis un document composé du champ date valant la date courante et du champ note valant 10 (double ou entier). L’expression régulière pour chercher une chaîne de caractères débutant par une voyelle suivie de n’importe quoi d’autre est [^aeiou]+$.
@@ -258,8 +263,9 @@ db.salles.updateMany({
 ## Exercice 21
 ### Affichez le décompte des documents pour lesquels le champ _id est de type « objectId ».
 ```js
-
-
+db.salles.countDocuments({
+  "_id": { $not: { $type: "objectId"} }
+})
 ```
 ## Exercice 22
 ### Pour les documents dont le champ _id n’est pas de type « objectId », affichez le nom de la salle ayant la plus grande capacité. Pour y parvenir, vous effectuerez un tri dans l’ordre qui convient tout en limitant le nombre de documents affichés pour ne retourner que celui qui comporte la capacité maximale.
