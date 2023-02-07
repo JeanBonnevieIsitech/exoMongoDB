@@ -220,14 +220,22 @@ db.salles.updateMany({
 ## Exercice 16
 ### Retirez le style «funk» à toutes les salles dont l’identifiant n’est égal ni à 2, ni à 3.
 ```js
-
-
+db.salles.updateMany({
+  "_id": { $ne: [2,3] }
+},
+{
+  $pull: { "styles":"funk"}
+})
 ```
 ## Exercice 17
 ### Ajoutez un tableau composé des styles «techno» et « reggae » à la salle dont l’identifiant est 3.
 ```js
-
-
+db.salles.updateMany({
+  "_id":{$eq:3}
+},
+{
+  $push: { "styles":["techno","reggae"]}
+})
 ```
 ## Exercice 18
 ### Pour les salles dont le nom commence par la lettre P (majuscule ou minuscule), augmentez la capacité de 150 places et rajoutez un champ de type tableau nommé contact dans lequel se trouvera un document comportant un champ nommé telephone dont la valeur sera « 04 11 94 00 10 ».
