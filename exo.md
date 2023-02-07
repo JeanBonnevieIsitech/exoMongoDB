@@ -101,20 +101,32 @@ db.salles.find({
 ## Exercice 4
 ### Affichez l’identifiant puis le nom des salles qui ont exactement un avis.
 ```js
-
-
+db.salles.find({
+  avis: { $size: 1}
+},
+{
+  "_id":1,
+  "nom":1
+})
 ```
 ## Exercice 5
 ### Affichez tous les styles musicaux des salles qui programment notamment du blues.
 ```js
-
-
+db.salles.find({
+  styles: {$all: ["blues"]}
+},
+{
+  "styles":1
+})
 ```
 ## Exercice 6
 ### Affichez tous les styles musicaux des salles qui ont le style « blues » en première position dans leur tableau styles.
 ```js
-
-
+db.salles.find({
+  "styles.0": "blues"
+},{
+  styles:1
+})
 ```
 ## Exercice 7
 ### Affichez la ville des salles dont le code postal commence par 84 et qui ont une capacité strictement inférieure à 500 places (pensez à utiliser une expression régulière).
