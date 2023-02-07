@@ -131,33 +131,60 @@ db.salles.find({
 ## Exercice 7
 ### Affichez la ville des salles dont le code postal commence par 84 et qui ont une capacité strictement inférieure à 500 places (pensez à utiliser une expression régulière).
 ```js
-
-
+db.salles.find({
+  $and: [ {"adresse.codePostal":{ $regex: "84*"}}, {capacite: {$lte:250}}]
+},{
+  "_id":0,
+  "adresse.ville":1
+})
 ```
 ## Exercice 8
 ### Affichez l’identifiant pour les salles dont l’identifiant est pair ou le champ avis est absent.
 ```js
-
-
+db.salles.find({
+  $or: [
+    { "_id": { $mod: [2,0 ] } },
+    { "avis": {$exists: false} }
+  ]
+},
+{
+  "_id":1
+})
 ```
 ## Exercice 9
 ### Affichez le nom des salles dont au moins un des avis comporte une note comprise entre 8 et 10 (tous deux inclus).
 ```js
-
-
+db.salles.find({
+  "avis.note": {$gt: 8,$lt:10 }
+},
+{
+  "_id":0,
+  "nom":1
+})
 ```
 
 ## Exercice 10
 ### Affichez le nom des salles dont au moins un des avis comporte une date postérieure au 15/11/2019 (pensez à utiliser le type JavaScript Date).
 ```js
-
-
+db.salles.find({
+  "avis.date":{ $gt:new Date("2019-11-15")}
+},
+{
+  "_id":0,
+  "nom":1
+})
 ```
 ## Exercice 11
 ### Affichez le nom ainsi que la capacité des salles dont le produit de la valeur de l’identifiant par 100 est strictement supérieur à la capacité.
 ```js
-
-
+db.salles.find({
+  $expr : { $gt: [{ $multiply: ["$_id",100] },"$capacite"] }
+},
+{
+  "_id":0,
+  nom:1,
+  capacite:1
+})
 ```
 ## Exercice 12
 ### Affichez le nom des salles de type SMAC programmant plus de deux styles de musiques différents en utilisant l’opérateur $where qui permet de faire usage de JavaScript.
