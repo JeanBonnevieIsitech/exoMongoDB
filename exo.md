@@ -1,5 +1,5 @@
 ## Exercice 1
-## #Affichez l’identifiant et le nom des salles qui sont des SMAC.
+### Affichez l’identifiant et le nom des salles qui sont des SMAC.
 ```js
 db.salles.find({
   smac: true
