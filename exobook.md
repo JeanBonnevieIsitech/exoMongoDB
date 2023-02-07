@@ -1,4 +1,5 @@
-### Créez une base de données sample nommée "sample_db" et une collection appelée "employees". Insérez les documents suivants dans la collection "employees":
+### Créez une base de données sample nommée "sample_db" et une collection appelée "employees".
+### Insérez les documents suivants dans la collection "employees":
 
 ```javascript
 use sample_db
