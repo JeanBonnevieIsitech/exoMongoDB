@@ -6,15 +6,46 @@ nom sera obligatoire et devra être de type chaîne de caractères.
 capacite sera obligatoire et devra être de type entier (int).
 
 Dans le champ adresse, les champs codePostal et ville, tous deux de type chaîne de caractères, seront obligatoires.
-
+```js
+db.salles.drop();  db.createCollection("salles",{
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      title: "objet de validation des salles",
+      required: ["nom","capacite","adresse.codePostal","adresse.ville"],
+      properties: {
+        nom: {
+          bsonType: "string"
+        },
+        capacite: {
+          bsonType: "int"
+        },
+        "adresse.codePostal": {
+          bsonType: "string"
+        },
+        "adresse.ville": {
+          bsonType: "string"
+        }
+      }
+    }
+  }
+})
+```
 Que constatez-vous lors de la tentative d’insertion suivante, et quelle en est la cause ?
-
 ```js
 db.salles.insertOne( 
 {"nom": "Super salle", "capacite": 1500, "adresse": {"ville": "Musiqueville"}} 
 ) 
 ```
+
+**Il manque le champ codePostal dans le champ adresse**
+
 Que proposez-vous pour régulariser la situation ?
+```js
+db.salles2.insertOne( 
+{"nom": "Super salle", "capacite": 1500, "adresse": {"ville": "Musiqueville","codePostal":"69100"}} 
+) 
+```
 
 ## Exercice 2
 
