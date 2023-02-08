@@ -310,7 +310,7 @@ db.salles.find({
 },
 {
   "_id":0,
-  "capacite":1
+  "nom":1
 }
 ).sort({"capacite":-1}).limit(1)
 ```
