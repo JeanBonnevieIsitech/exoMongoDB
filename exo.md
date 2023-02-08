@@ -318,8 +318,13 @@ db.salles.find({
 ## Exercice 23
 ### Remplacez, sur la base de la valeur de son champ _id, le document créé à l’exercice 20 par un document contenant seulement le nom préexistant et la capacité, que vous monterez à 60 personnes.
 ```js
-
-
+db.salles.updateOne({
+  "_id":ObjectId("63e3b2d9b8bb54a45e2d164d")
+},
+{
+  $set: {"capacite":60},
+  $unset: {"smac":""}
+})
 ```
 
 ## Exercice 24
