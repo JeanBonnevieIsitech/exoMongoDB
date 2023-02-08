@@ -50,7 +50,34 @@ db.salles2.insertOne(
 ## Exercice 2
 
 Rajoutez à vos critères de validation existants un critère supplémentaire : le champ _id devra dorénavant être de type entier (int) ou ObjectId.
-
+```js
+db.salles2.drop();  db.createCollection("salles2",{
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      title: "objet de validation des salles",
+      required: ["nom","capacite","adresse.codePostal","adresse.ville"],
+      properties: {
+        id: {
+          bsonType: ["int","objectId"]
+        },
+        nom: {
+          bsonType: "string"
+        },
+        capacite: {
+          bsonType: "int"
+        },
+        "adresse.codePostal": {
+          bsonType: "string"
+        },
+        "adresse.ville": {
+          bsonType: "string"
+        }
+      }
+    }
+  }
+})
+```
 Que se passe-t-il si vous tentez de mettre à jour l’ensemble des documents existants dans la collection à l’aide de la requête suivante :
 ```js
 db.salles.updateMany({}, {$set: {"verifie": true}}) 
