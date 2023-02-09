@@ -46,4 +46,6 @@ db.achats.aggregate([
 ]) 
 ```
 
-## Explication :
+## Explication : 
+
+## Cette requête calcul et affiche le nom, le prénom et le pourcentage total payé calculé à partir de la somme total des achats et des réductions
