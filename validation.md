@@ -7,7 +7,8 @@ capacite sera obligatoire et devra être de type entier (int).
 
 Dans le champ adresse, les champs codePostal et ville, tous deux de type chaîne de caractères, seront obligatoires.
 ```js
-db.salles.drop();  db.createCollection("salles",{
+db.runCommand({
+  collMod: "salles",
   validator: {
     $jsonSchema: {
       bsonType: "object",
@@ -51,7 +52,8 @@ db.salles2.insertOne(
 
 Rajoutez à vos critères de validation existants un critère supplémentaire : le champ _id devra dorénavant être de type entier (int) ou ObjectId.
 ```js
-db.salles2.drop();  db.createCollection("salles2",{
+db.runCommand({
+  collMod: "salles",
   validator: {
     $jsonSchema: {
       bsonType: "object",
@@ -81,7 +83,10 @@ db.salles2.drop();  db.createCollection("salles2",{
 Que se passe-t-il si vous tentez de mettre à jour l’ensemble des documents existants dans la collection à l’aide de la requête suivante :
 ```js
 db.salles.updateMany({}, {$set: {"verifie": true}}) 
+
 ```
+**ça ne modifie rien**
+
 Supprimez les critères rajoutés à l’aide de la méthode delete en JavaScript
 
 ## Exercice 3
