@@ -48,21 +48,30 @@ Requêtes MongoDB:
 a. Recherchez les stations météorologiques qui ont enregistré une température supérieure à 25°C pendant les mois d'été (juin à août). 
 
 Utilisez la méthode find () et les opérateurs de comparaison pour trouver les documents qui correspondent à vos critères. 
-
-b. Triez les stations météorologiques par pression atmosphérique, du plus élevé au plus bas. Utilisez la méthode sort () pour trier les résultats. 
  
 (On décide de rechercher sur l'année 2020)
+
 ```js
 db.weather.find({
-  "tavg": {$gt: 25 },
+  "tmax": {$gt: 25 },
   "date": {$gte:ISODate("2020-06-01"),$lte:ISODate("2020-08-31")}
 },
 {
   "_id":0,
   "city":1,
-  "tavg":1,
+})
+```
+
+b. Triez les stations météorologiques par pression atmosphérique, du plus élevé au plus bas. Utilisez la méthode sort () pour trier les résultats. 
+ 
+```js
+db.weather.find({},{
+  "_id":0,
+  "city":1,
   "pres":1
-}).sort({"pres":-1})
+}).sort({
+  "pres":-1
+})
 ```
 
 Framework d'agrégation: 
