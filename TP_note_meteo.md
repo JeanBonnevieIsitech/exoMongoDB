@@ -58,7 +58,7 @@ db.weather.find({
 },
 {
   "_id":0,
-  "city":1,
+  "country":1,
 })
 ```
 
@@ -74,9 +74,27 @@ db.weather.find({},{
 })
 ```
 
+Version sans les noms de ville dupliqué
+```js
+db.weather.aggregate( [
+  
+  {$group:{
+    _id: "$city",
+    "pres": {$max: "$pres"}
+  }},
+  {
+    $sort: {
+      "pres":-1
+    }
+  }
+] )
+```
+
 Framework d'agrégation: 
 
 a. Calculez la température moyenne par station météorologique pour chaque mois de l'année. Utilisez le framework d'agrégation de MongoDB pour effectuer des calculs sur les données et grouper les données par mois. 
+
+
 
 b. Trouvez la station météorologique qui a enregistré la plus haute température en été. Utilisez le framework d'agrégation de MongoDB pour effectuer des calculs sur les données et trouver la valeur maximale. 
 
