@@ -79,7 +79,7 @@ Version sans les noms de ville dupliqué
 db.weather.aggregate( [
   
   {$group:{
-    _id: "$city",
+    _id: {"city":"$city"},
     "pres": {$max: "$pres"}
   }},
   {
@@ -101,7 +101,7 @@ Utilisez le framework d'agrégation de MongoDB pour effectuer des calculs sur le
 
 ```
 
-b. Trouvez la station météorologique qui a enregistré la plus haute température en été. 
+b. Trouvez la station météorologique qui a enregistré la plus haute température en été 
 
 Utilisez le framework d'agrégation de MongoDB pour effectuer des calculs sur les données et trouver la valeur maximale. 
 
@@ -114,7 +114,7 @@ db.weather.aggregate([
   },
   {
     $group: {
-      _id: "$city",
+      _id: {"city":"$city"},
       tmax: {$max: "$tmax"}
     }
   },
