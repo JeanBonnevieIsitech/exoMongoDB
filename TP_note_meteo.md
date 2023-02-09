@@ -92,11 +92,42 @@ db.weather.aggregate( [
 
 Framework d'agrégation: 
 
-a. Calculez la température moyenne par station météorologique pour chaque mois de l'année. Utilisez le framework d'agrégation de MongoDB pour effectuer des calculs sur les données et grouper les données par mois. 
+a. Calculez la température moyenne par station météorologique pour chaque mois de l'année. 
+
+Utilisez le framework d'agrégation de MongoDB pour effectuer des calculs sur les données et grouper les données par mois. 
+
+```js
 
 
+```
 
-b. Trouvez la station météorologique qui a enregistré la plus haute température en été. Utilisez le framework d'agrégation de MongoDB pour effectuer des calculs sur les données et trouver la valeur maximale. 
+b. Trouvez la station météorologique qui a enregistré la plus haute température en été. 
+
+Utilisez le framework d'agrégation de MongoDB pour effectuer des calculs sur les données et trouver la valeur maximale. 
+
+```js
+db.weather.aggregate([
+  {
+    $match: {
+      "date": {$gte:ISODate("2020-06-21"),$lte:ISODate("2020-09-23")}
+    }
+  },
+  {
+    $group: {
+      _id: "$city",
+      tmax: {$max: "$tmax"}
+    }
+  },
+  {
+    $sort:{
+      "tmax":-1
+    }
+  },
+  {
+    $limit: 1
+  }
+  ])
+```
 
 Export de la base de données: 
 a. Exportez les résultats des requêtes dans un fichier CSV pour un usage ultérieur. Utilisez la commande mongoexport pour exporter des données de MongoDB. 
